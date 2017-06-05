@@ -105,7 +105,9 @@ class Exam(object):
             else: 
                 wrong_answers += 1
 
-        return float(right_answers) / (right_answers + wrong_answers)
+        score = float(right_answers) / (right_answers + wrong_answers)
+
+        return score
 
 class StudentExam(object):
     """Stores students, exams and student's score for said exam."""
@@ -124,9 +126,24 @@ class StudentExam(object):
         print "Your score is {}.".format(self.score)
 
 
+class Quiz(Exam):
+    """Adjusts the score to be 1 for Pass or 0 for Fail."""
+    
+    def administer(self):
+        score = super(Quiz, self).administer()
+
+        if float(score) > 0.5:
+            return "Your score is 1. You passed!"
+
+        else: 
+            return "Your score is 0. You failed."
+
+
+
+
 def example():
 
-    exam = Exam('Midterm')
+    exam = Quiz('Midterm')
 
     question_1 = Question('What is the method for adding an element to a set? ',
         '.add()')
